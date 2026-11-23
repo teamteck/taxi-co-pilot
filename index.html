@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#10243a">
+<meta name="description" content="Taxi Co-Pilot Thailand - เครื่องมือช่วยคนขับแท็กซี่">
+<title>Taxi Co-Pilot Thailand</title>
+<style>
+:root{--navy:#10243a;--blue:#1769aa;--sky:#eaf4fb;--ink:#172536;--muted:#667789;--line:#dce5ed;--bg:#f3f6f9;--green:#18794e}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",sans-serif}button,input,select{font:inherit}button{cursor:pointer}
+header{background:var(--navy);color:white;padding:20px 18px 24px;border-radius:0 0 22px 22px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:10px}.brand{font-weight:800;font-size:20px;letter-spacing:.4px}.free{font-size:12px;border:1px solid #8bb9d9;border-radius:30px;padding:5px 10px;color:#d8efff}
+header p{margin:7px 0 0;color:#d4e2ee;font-size:13px}.wrap{max-width:760px;margin:auto;padding:16px 14px 36px}
+.section-title{font-size:16px;font-weight:750;margin:7px 2px 12px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+.tile{background:white;border:1px solid var(--line);border-radius:16px;padding:16px 13px;text-align:left;min-height:112px;box-shadow:0 2px 8px #10243a0a;color:var(--ink)}
+.tile .ico{font-size:25px;display:block;margin-bottom:8px}.tile strong{display:block;font-size:15px}.tile small{display:block;color:var(--muted);font-size:12px;margin-top:4px}
+.panel{display:none;background:white;border:1px solid var(--line);border-radius:16px;padding:17px;margin-top:15px;box-shadow:0 2px 8px #10243a0a}.panel.active{display:block}
+.panel h2{font-size:18px;margin:0 0 5px}.hint{color:var(--muted);font-size:13px;margin:0 0 14px}
+label{display:block;font-size:13px;font-weight:650;margin:12px 0 6px}input,select{width:100%;padding:12px;border:1px solid #cbd7e1;border-radius:10px;background:white;color:var(--ink)}
+.actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:13px}.btn{border:0;border-radius:10px;padding:12px 15px;background:var(--blue);color:white;font-weight:700}.btn.secondary{background:var(--sky);color:#155486}.btn.dark{background:var(--navy)}
+.result{margin-top:13px;background:#eef7f2;border:1px solid #cde8d8;border-radius:12px;padding:13px;font-size:14px;line-height:1.6}
+.back{border:0;background:transparent;color:var(--blue);font-weight:700;padding:0 0 12px}
+.note{font-size:12px;color:var(--muted);line-height:1.5;margin-top:15px}
+footer{text-align:center;color:#788797;font-size:11px;padding:22px 5px}
+@media(min-width:600px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}.tile{min-height:125px}}
+</style>
+</head>
+<body>
+<header><div class="top"><div class="brand">🚕 TAXI CO-PILOT</div><div class="free">ใช้ฟรี</div></div><p>ผู้ช่วยคนขับแท็กซี่ประเทศไทย · เวอร์ชันทดลอง</p></header>
+<main class="wrap">
+<div id="home">
+<div class="section-title">เครื่องมือสำหรับคนขับ</div>
+<div class="grid">
+<button class="tile" onclick="show('nav')"><span class="ico">🧭</span><strong>นำทาง</strong><small>ค้นหาปลายทางและเปิดแผนที่</small></button>
+<button class="tile" onclick="show('distance')"><span class="ico">📏</span><strong>คำนวณเวลาเดินทาง</strong><small>ระยะทางและความเร็วเฉลี่ย</small></button>
+<button class="tile" onclick="show('ev')"><span class="ico">🔋</span><strong>EV Assistant</strong><small>ประเมินแบตเตอรี่ปลายทาง</small></button>
+<button class="tile" onclick="show('fare')"><span class="ico">🧮</span><strong>คำนวณค่าโดยสาร</strong><small>เครื่องมือคำนวณเบื้องต้น</small></button>
+<button class="tile" onclick="show('service')"><span class="ico">☕</span><strong>จุดบริการคนขับ</strong><small>ค้นหาห้องน้ำ ที่พัก และปั๊ม</small></button>
+<button class="tile" onclick="show('saved')"><span class="ico">⭐</span><strong>สถานที่โปรด</strong><small>บันทึกและเปิดสถานที่ประจำ</small></button>
+</div>
+<div class="note">ออกแบบให้ใช้ขณะรถจอดเท่านั้น กรุณาตั้งค่าปลายทางก่อนออกรถ และปฏิบัติตามกฎหมายจราจร</div>
+</div>
+
+<section class="panel" id="nav"><button class="back" onclick="home()">← กลับหน้าหลัก</button><h2>🧭 ค้นหาปลายทาง</h2><p class="hint">พิมพ์ชื่อสถานที่หรือที่อยู่ แล้วเปิดแผนที่นำทาง</p><label>ปลายทาง</label><input id="destination" placeholder="เช่น สนามบินดอนเมือง"><div class="actions"><button class="btn" onclick="navigate()">เปิด Google Maps</button><button class="btn secondary" onclick="savePlace()">บันทึกสถานที่โปรด</button></div><div id="navmsg" class="note"></div></section>
+
+<section class="panel" id="distance"><button class="back" onclick="home()">← กลับหน้าหลัก</button><h2>📏 คำนวณเวลาเดินทาง</h2><p class="hint">คำนวณจากระยะทางและความเร็วเฉลี่ยที่คุณป้อน</p><label>ระยะทาง (กิโลเมตร)</label><input id="km" type="number" min="0" step=".1" placeholder="เช่น 25"><label>ความเร็วเฉลี่ย (กม./ชม.)</label><input id="speed" type="number" min="1" value="30"><div class="actions"><button class="btn" onclick="calcTime()">คำนวณเวลา</button></div><div id="timeres" aria-live="polite"></div></section>
+
+<section class="panel" id="ev"><button class="back" onclick="home()">← กลับหน้าหลัก</button><h2>🔋 EV Assistant</h2><p class="hint">ประเมินแบตเตอรี่ที่ใช้ระหว่างเดินทาง ไม่ใช่ค่ารับประกันระยะทางจริง</p><label>แบตเตอรี่ใช้งานได้ (kWh)</label><input id="capacity" type="number" value="60" min="1"><label>แบตเตอรี่ปัจจุบัน (%)</label><input id="battery" type="number" value="80" min="0" max="100"><label>อัตราสิ้นเปลือง (kWh/100 km)</label><input id="consumption" type="number" value="18" min="1"><label>ระยะทางปลายทาง (km)</label><input id="evkm" type="number" min="0" step=".1"><div class="actions"><button class="btn" onclick="calcEV()">ประเมินแบตเตอรี่ปลายทาง</button></div><div id="evres" aria-live="polite"></div></section>
+
+<section class="panel" id="fare"><button class="back" onclick="home()">← กลับหน้าหลัก</button><h2>🧮 เครื่องคำนวณค่าโดยสาร</h2><p class="hint">ใช้คำนวณตัวเลขตามอัตราที่คุณกรอกเองเท่านั้น ไม่ใช่การยืนยันค่าโดยสารตามกฎหมาย</p><label>ระยะทาง (กิโลเมตร)</label><input id="farekm" type="number" min="0" step=".1"><label>ค่าเริ่มต้น (บาท)</label><input id="basefare" type="number" min="0" value="35"><label>อัตราต่อกิโลเมตร (บาท)</label><input id="rate" type="number" min="0" step=".5" value="6"><label>ค่าใช้จ่ายเพิ่มเติม (บาท) เช่น ทางด่วน</label><input id="extra" type="number" min="0" value="0"><div class="actions"><button class="btn" onclick="calcFare()">คำนวณ</button></div><div id="fareres" aria-live="polite"></div></section>
+
+<section class="panel" id="service"><button class="back" onclick="home()">← กลับหน้าหลัก</button><h2>☕ ค้นหาจุดบริการคนขับ</h2><p class="hint">เลือกประเภทสถานที่ แล้วค้นหาในบริเวณใกล้เคียงผ่าน Google Maps</p><div class="actions"><button class="btn secondary" onclick="searchNearby('ห้องน้ำสาธารณะ')">🚻 ห้องน้ำ</button><button class="btn secondary" onclick="searchNearby('ที่จอดรถ')">🅿️ ที่จอดรถ</button><button class="btn secondary" onclick="searchNearby('ปั๊มน้ำมัน')">⛽ ปั๊มน้ำมัน</button><button class="btn secondary" onclick="searchNearby('สถานีชาร์จรถไฟฟ้า')">🔌 สถานีชาร์จ EV</button><button class="btn secondary" onclick="searchNearby('ร้านอาหาร')">🍜 ร้านอาหาร</button></div></section>
+
+<section class="panel" id="saved"><button class="back" onclick="home()">← กลับหน้าหลัก</button><h2>⭐ สถานที่โปรด</h2><p class="hint">เก็บไว้ในอุปกรณ์เครื่องนี้</p><div id="savedlist"></div></section>
+<footer>Taxi Co-Pilot Thailand · เวอร์ชันทดลอง 0.1<br>ข้อมูลคำนวณเป็นค่าประมาณ โปรดตรวจสอบก่อนใช้งานจริง</footer>
+</main>
+<script>
+function show(id){document.getElementById('home').style.display='none';document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');if(id==='saved')renderSaved();window.scrollTo(0,0)}
+function home(){document.getElementById('home').style.display='block';document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));window.scrollTo(0,0)}
+function val(id){return Number(document.getElementById(id).value)}
+function navigate(){let d=document.getElementById('destination').value.trim();if(!d){alert('กรุณากรอกปลายทาง');return}window.open('https://www.google.com/maps/dir/?api=1&destination='+encodeURIComponent(d)+'&travelmode=driving','_blank');}
+function calcTime(){let k=val('km'),s=val('speed');if(k<0||s<=0||!Number.isFinite(k)||!Number.isFinite(s)){alert('กรุณากรอกตัวเลขให้ถูกต้อง');return}let m=k/s*60;document.getElementById('timeres').innerHTML='<div class="result">เวลาเดินทางโดยประมาณ <b>'+Math.floor(m/60)+' ชั่วโมง '+Math.round(m%60)+' นาที</b><br><small>ไม่รวมรถติด การหยุดพัก และเหตุการณ์บนถนน</small></div>'}
+function calcEV(){let c=val('capacity'),b=val('battery'),e=val('consumption'),k=val('evkm');if(c<=0||e<=0||b<0||b>100||k<0){alert('กรุณาตรวจสอบตัวเลข');return}let used=k*e/100,remain=b-used/c*100;document.getElementById('evres').innerHTML='<div class="result">ใช้แบตเตอรี่ประมาณ <b>'+used.toFixed(1)+' kWh</b><br>แบตเตอรี่คงเหลือประมาณ <b>'+remain.toFixed(1)+'%</b><br>'+(remain<15?'<b style="color:#a22">คำเตือน: แบตเตอรี่อาจไม่เพียงพอ ควรวางแผนชาร์จ</b>':remain<25?'ควรตรวจสอบสถานีชาร์จสำรองระหว่างทาง':'ตัวเลขประเมินเบื้องต้น โปรดเผื่อแบตเตอรี่สำรอง')+'</div>'}
+function calcFare(){let k=val('farekm'),b=val('basefare'),r=val('rate'),x=val('extra');if(k<0||b<0||r<0||x<0){alert('กรุณากรอกตัวเลขตั้งแต่ศูนย์ขึ้นไป');return}document.getElementById('fareres').innerHTML='<div class="result">ยอดคำนวณตามอัตราที่กรอก <b>'+(b+k*r+x).toLocaleString('th-TH',{maximumFractionDigits:2})+' บาท</b><br><small>ไม่ใช่การคำนวณค่าโดยสารตามกฎหมายหรือมิเตอร์จริง</small></div>'}
+function searchNearby(q){window.open('https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(q+' near me'),'_blank')}
+function getSaved(){try{return JSON.parse(localStorage.getItem('taxiPlaces')||'[]')}catch(e){return []}}
+function savePlace(){let d=document.getElementById('destination').value.trim();if(!d){alert('กรุณากรอกชื่อสถานที่ก่อน');return}let a=getSaved();if(!a.includes(d)){a.push(d);localStorage.setItem('taxiPlaces',JSON.stringify(a))}document.getElementById('navmsg').textContent='บันทึก "'+d+'" ในสถานที่โปรดแล้ว'}
+function renderSaved(){let a=getSaved(),el=document.getElementById('savedlist');if(!a.length){el.textContent='ยังไม่มีสถานที่ที่บันทึกไว้';return}el.innerHTML='';a.forEach((v,i)=>{let row=document.createElement('div');row.style.cssText='display:flex;gap:8px;align-items:center;margin:8px 0';let b=document.createElement('button');b.className='btn secondary';b.textContent='นำทาง: '+v;b.onclick=()=>window.open('https://www.google.com/maps/dir/?api=1&destination='+encodeURIComponent(v)+'&travelmode=driving','_blank');let del=document.createElement('button');del.className='btn';del.textContent='ลบ';del.onclick=()=>{let n=getSaved();n.splice(i,1);localStorage.setItem('taxiPlaces',JSON.stringify(n));renderSaved()};row.append(b,del);el.append(row)})}
+</script>
+</body></html>
